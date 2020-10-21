@@ -1,0 +1,3 @@
+real sum: real 1nr, real 2nr.
+#
+return 1nr + 2nr.
