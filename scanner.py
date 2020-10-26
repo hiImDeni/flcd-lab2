@@ -1,46 +1,47 @@
 from symbols_table_hash import SymbolsTable
 from validate_token import Token
+from pif import PIF
 import re
 
+
 class Scanner:
-    def __init__(self, _program=''):
+    def __init__(self, file):
         self.__symbols_table = SymbolsTable()
-        self.__program = _program
         self.__types = ['int', 'real', 'char', 'string', 'bool', 'array', 'none']
         self.__operators = ['<', '>', '<=', '>=', '=', '!=', '+', '-', '/', '//', '%', '*', ':=', '&', '|']
         self.__reserved_words = self.__types + ['if', 'while', 'then', 'do', 'print', 'read', 'return', 'main']
-        self.__separators = ['[', ']', '(', ')', '$', ' ', '.']  # $ -> is for comments
-        self.__pif = []
-        self.statements = []
-        # self.__read_program()
-
-    def __read_program(self):
-        file = open('p1.txt', 'r')
-        for line in file:
-            self.__statements.appens(line)
+        self.__separators = ['[', ']', '(', ')', '$', ' ', '.', '{', '}']  # $ -> is for comments
+        self.__pif = PIF()
+        self.__file = file
 
     def parse(self):
-        statements = self.__program.split('.')
-        for statement in statements:
-            tokens = statement.split(' ')
-            for tok in tokens:
-                if tok in self.__reserved_words or tok in self.__operators or tok in self.__separators:
-                    self.__pif.append([tok, 0])
-                else:
-                    token = Token(tok)
+        with open(self.__file, 'r') as file:
+            for i, line in enumerate(file):
+                l = line.strip()
+                statements = l.split('.')
 
-                    if token.is_identifier() or token.is_constant():
-                        key = self.__symbols_table.add_symbol(token.token)
-                        self.__pif.append([token.token, key])
-                    else:
-                        raise ValueError('Lexical error: ' + token.token)
+                for statement in statements:
+                    tokens = statement.split(' ')
+                    for tok in tokens:
+                        if tok == '':
+                            continue
+                        if tok in self.__reserved_words or tok in self.__operators or tok in self.__separators:
+                            self.__pif.add(0, tok)
+                        else:
+                            token = Token(tok)
 
+                            if token.is_identifier() or token.is_constant():
+                                key = self.__symbols_table.add_symbol(token.token)
+                                self.__pif.add(key, token.token)
+                            else:
+                                raise ValueError('Lexical error at line ' + str(i) + ': ' + token.token)
 
-if __name__ == '__main__':
-    p1 = "int divisorsSum: int nr.[.int sum.sum := 0.int i.i = 1.while i <= nr do.[.if nr % i = 0 then.[.sum := sum + i.].i := i + 1.].return sum.]"
-    scanner = Scanner(p1)
-    scanner.parse()
+    def write_files(self):
+        problem = self.__file.split('.')[0]
+        st_file = problem + '_st.out'
+        pif_file = problem + '_pif.out'
+        with open(st_file, 'w') as st:
+            st.write(str(self.__symbols_table))
+        with open(pif_file, 'w') as pif:
+            pif.write(str(self.__pif))
 
-    perr = "real sum: real 1nr, real 2nr. #. return 1nr + 2nr."
-    scanner = Scanner(perr)
-    scanner.parse()

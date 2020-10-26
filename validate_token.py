@@ -1,3 +1,5 @@
+import re
+
 def is_valid_name(name):
     for char in name:
         if not (char.isalpha() or char.isnumeric() or char == '-' or char == '_'):
@@ -10,13 +12,7 @@ class Token:
         self.token = token
 
     def is_identifier(self):
-        if not self.token[0].isalpha():
-            return False
-        if self.token[-1] == ':':
-            identifier = self.token[:-1]
-        else:
-            identifier = self.token
-        return is_valid_name(identifier)
+        return re.match('[a-zA-Z][a-zA-Z0-9]{0,}', self.token) is not None
 
     def is_numeric_constant(self):
         return self.token.isnumeric()
@@ -25,7 +21,7 @@ class Token:
         return len(self.token) == 3 and self.token[0] == "'" and self.token[2] == "'"
 
     def is_string_constant(self):
-        return self.token[0] == '"' and self.token[-1] == '"'
+        return len(self.token) >= 3 and self.token[0] == '"' and self.token[-1] == '"'
 
     def is_boolean_constant(self):
         return self.token == 'false' or self.token == 'true'
