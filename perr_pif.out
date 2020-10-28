@@ -1,0 +1,18 @@
+pos: 0 value: real
+pos: 0 value: :
+pos: 85 value: sum
+pos: 0 value: real
+pos: 0 value: ,
+pos: 0 value: Lexical error: unknown token 1nr
+pos: 0 value: real
+pos: 0 value: Lexical error: unknown token 2nr
+pos: 1 value: Lexical error: unknown token #
+pos: 115 value: s
+pos: 0 value: =
+pos: 2 value: Lexical error: unknown token "assre
+pos: 0 value: -
+pos: 99 value: 12
+pos: 0 value: return
+pos: 4 value: Lexical error: unknown token 1nr
+pos: 0 value: +
+pos: 4 value: Lexical error: unknown token 2nr

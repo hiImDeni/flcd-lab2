@@ -40,6 +40,7 @@ class SymbolsTable:
                 return key
             tries += 1
             key = utils.hash_code(self.__capacity, symbol, tries)
+        return None
 
     def __str__(self):
         res = ''

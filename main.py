@@ -1,7 +1,7 @@
 from scanner import Scanner
 
 if __name__ == '__main__':
-    scanner = Scanner('p1.txt')
+    scanner = Scanner('perr.txt')
     scanner.parse()
     scanner.write_files()
     

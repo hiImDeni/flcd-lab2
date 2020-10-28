@@ -1,5 +1,6 @@
 pos: 0 value: int
-pos: 226 value: divisorsSum:
+pos: 168 value: divisorsSum
+pos: 0 value: :
 pos: 0 value: int
 pos: 224 value: nr
 pos: 0 value: [

@@ -2,9 +2,9 @@ bool search: int x, array values.
 [
 int i.
 i = 0.
-while i < len ( values ) do
+while i < len (values) do
 [
-if values { i } = x then
+if values {i} = x then
 [
 return true.
 ]

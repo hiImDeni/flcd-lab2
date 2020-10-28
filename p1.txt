@@ -1,4 +1,4 @@
-int divisorsSum: int nr.
+int divisorsSum : int nr.
 [
 int sum.
 sum := 0.
