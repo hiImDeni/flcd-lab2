@@ -15,10 +15,7 @@ class Token:
         return re.match('[a-zA-Z][a-zA-Z0-9]{0,}', self.token) is not None
 
     def is_numeric_constant(self):
-        if len(self.token) > 1 and self.token[0] == '0':
-            return False
-
-        return self.token.isnumeric()
+        return re.match("^0$|^(([+\\-])?[1-9][0-9]*)$", self.token) is not None
 
     def is_char_constant(self):
         return ((len(self.token) == 2) or len(self.token) == 3) and self.token[0] == "'" and self.token[-1] == "'"
@@ -31,7 +28,7 @@ class Token:
 
     def is_real_constant(self):
         realConstant = self.token.split(',')
-        return len(realConstant) == 2 and realConstant[0].isnumeric() and realConstant[1].isnumeric()
+        return len(realConstant) == 2 and Token(realConstant[0]).is_numeric_constant() and realConstant[1].isnumeric()
 
     def is_constant(self):
         return self.is_boolean_constant() or self.is_char_constant() or \

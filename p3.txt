@@ -1,4 +1,5 @@
-bool search: int x, array values.
+bool search: int x; array values.
+bool search: int x; array values.
 [
 int i.
 i = 0.
